@@ -13,11 +13,11 @@ const state = {
 // ===================
 // == Configuration ==
 // ===================
-const lineWidth = 20;
+let lineWidth = 1;
 const halfLineWidth = lineWidth / 2;
 const fillStyle = '#333';
-const strokeStyle = '#333';
-const shadowColor = '#333';
+let strokeStyle = '#333';
+let shadowColor = '#333';
 const shadowBlur = lineWidth / 4;
 
 // =====================
@@ -52,6 +52,8 @@ function handleWritingStart(event) {
   canvasContext.shadowBlur = null;
 
   canvasContext.fill();
+
+  canvasContext.fillStyle = "white";
   
   state.mousedown = true;
 }
@@ -99,8 +101,37 @@ function getMosuePositionOnCanvas(event) {
   return { x: canvasX, y: canvasY };
 }
 
+document.getElementById("brushWidth").addEventListener("change", function() {
+  const brushWidthInput = document.getElementById('brushWidth');
+  let linhalargura = parseInt(brushWidthInput.value);
+
+  // Garanta que a largura do pincel seja um número inteiro
+  if (isNaN(linhalargura) || linhalargura < 1) {
+    linhalargura = 1;
+  } else if (brushWidth > 20) {
+    linhalargura = 20;
+  }
+
+  // Atualizar a largura do pincel conforme o valor inserido
+  lineWidth = linhalargura;
+});
+
+document.getElementById("downloadCanvas").addEventListener("click", function() {
+  const canvas = document.getElementById('drawing-area');
+  const link = document.createElement('a');
+  link.href = canvas.toDataURL();
+  link.download = 'imagem.png';
+  link.click();
+});
+
+document.getElementById("colorSelect").addEventListener("click", function() {
+  strokeStyle = this.value;
+  shadowColor =  this.value;
+});
+
+
 function clearCanvas() {
   canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-                        }
+ }
 
 });
