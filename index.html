@@ -108,8 +108,8 @@ function paint(event) {
     currentY = event.offsetY;
   } else if (event.type === 'touchmove') {
     const touch = event.touches[0];
-    currentX = touch.clientX - canvas.offsetLeft;
-    currentY = touch.clientY - canvas.offsetTop;
+    currentX = touch.clientX - canvas.getBoundingClientRect().left;
+    currentY = touch.clientY - canvas.getBoundingClientRect().top;
   }
 
   context.beginPath();
@@ -132,13 +132,14 @@ function updatePosition(event) {
     currentY = event.offsetY;
   } else if (event.type === 'touchmove') {
     const touch = event.touches[0];
-    currentX = touch.clientX - canvas.offsetLeft;
-    currentY = touch.clientY - canvas.offsetTop;
+    currentX = touch.clientX - canvas.getBoundingClientRect().left;
+    currentY = touch.clientY - canvas.getBoundingClientRect().top;
   }
 
   previousX = currentX;
   previousY = currentY;
 }
+
 
 
 function limparCanvas() {
