@@ -1,71 +1,106 @@
 window.addEventListener("load", function(event) {
 
+// =============
+// == Globals ==
+// =============
 const canvas = document.getElementById('drawing-area');
-const context = canvas.getContext('2d');
+const canvasContext = canvas.getContext('2d');
+const clearButton = document.getElementById('clear-button');
+const state = {
+  mousedown: false
+};
 
-let isPainting = false;
-let previousX = 0;
-let previousY = 0;
+// ===================
+// == Configuration ==
+// ===================
+const lineWidth = 20;
+const halfLineWidth = lineWidth / 2;
+const fillStyle = '#333';
+const strokeStyle = '#333';
+const shadowColor = '#333';
+const shadowBlur = lineWidth / 4;
 
-context.strokeStyle = '#ff0000';
+// =====================
+// == Event Listeners ==
+// =====================
+canvas.addEventListener('mousedown', handleWritingStart);
+canvas.addEventListener('mousemove', handleWritingInProgress);
+canvas.addEventListener('mouseup', handleDrawingEnd);
+canvas.addEventListener('mouseout', handleDrawingEnd);
 
-canvas.addEventListener('mousedown', startPainting);
-canvas.addEventListener('mousemove', paint);
-canvas.addEventListener('mouseup', stopPainting);
-canvas.addEventListener('mouseout', stopPainting);
+canvas.addEventListener('touchstart', handleWritingStart);
+canvas.addEventListener('touchmove', handleWritingInProgress);
+canvas.addEventListener('touchend', handleDrawingEnd);
 
-canvas.addEventListener('touchstart', startPainting);
-canvas.addEventListener('touchmove', paint);
-canvas.addEventListener('touchend', stopPainting);
-canvas.addEventListener('touchcancel', stopPainting);
+clearButton.addEventListener('click', handleClearButtonClick);
 
-function startPainting(event) {
-  isPainting = true;
-  updatePosition(event);
+// ====================
+// == Event Handlers ==
+// ====================
+function handleWritingStart(event) {
+  event.preventDefault();
+
+  const mousePos = getMosuePositionOnCanvas(event);
+  
+  canvasContext.beginPath();
+
+  canvasContext.moveTo(mousePos.x, mousePos.y);
+
+  canvasContext.lineWidth = lineWidth;
+  canvasContext.strokeStyle = strokeStyle;
+  canvasContext.shadowColor = null;
+  canvasContext.shadowBlur = null;
+
+  canvasContext.fill();
+  
+  state.mousedown = true;
 }
 
-function paint(event) {
-  if (!isPainting) return;
+function handleWritingInProgress(event) {
+  event.preventDefault();
+  
+  if (state.mousedown) {
+    const mousePos = getMosuePositionOnCanvas(event);
 
-  let currentX, currentY;
-
-  if (event.type === 'mousemove') {
-    currentX = event.offsetX;
-    currentY = event.offsetY;
-  } else if (event.type === 'touchmove') {
-    const touch = event.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    currentX = touch.clientX - rect.left;
-    currentY = touch.clientY - rect.top;
+    canvasContext.lineTo(mousePos.x, mousePos.y);
+    canvasContext.stroke();
   }
-
-  context.beginPath();
-  context.moveTo(previousX, previousY);
-  context.lineTo(currentX, currentY);
-  context.stroke();
-
-  updatePosition(event);
 }
 
-function stopPainting() {
-  isPainting = false;
-}
+function handleDrawingEnd(event) {
+  event.preventDefault();
+  
+  if (state.mousedown) {
+    canvasContext.shadowColor = shadowColor;
+    canvasContext.shadowBlur = shadowBlur;
 
-function updatePosition(event) {
-  let currentX, currentY;
-
-  if (event.type === 'mousemove') {
-    currentX = event.offsetX;
-    currentY = event.offsetY;
-  } else if (event.type === 'touchmove') {
-    const touch = event.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    currentX = touch.clientX - rect.left;
-    currentY = touch.clientY - rect.top;
+    canvasContext.stroke();
   }
-
-  previousX = currentX;
-  previousY = currentY;
+  
+  state.mousedown = false;
 }
+
+function handleClearButtonClick(event) {
+  event.preventDefault();
+  
+  clearCanvas();
+}
+
+// ======================
+// == Helper Functions ==
+// ======================
+function getMosuePositionOnCanvas(event) {
+  const clientX = event.clientX || event.touches[0].clientX;
+  const clientY = event.clientY || event.touches[0].clientY;
+  const { offsetLeft, offsetTop } = event.target;
+  const canvasX = clientX - offsetLeft;
+  const canvasY = clientY - offsetTop;
+
+  return { x: canvasX, y: canvasY };
+}
+
+function clearCanvas() {
+  canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+                        }
 
 });
