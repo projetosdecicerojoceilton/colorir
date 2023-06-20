@@ -83,16 +83,19 @@ let previousY = 0;
 
 context.strokeStyle = '#ff0000';
 
-canvas.addEventListener('mousedown', startPainting);
-canvas.addEventListener('mousemove', paint);
-canvas.addEventListener('mouseup', stopPainting);
-canvas.addEventListener('mouseout', stopPainting);
+canvas.addEventListener('touchstart', startPainting);
+canvas.addEventListener('touchmove', paint);
+canvas.addEventListener('touchend', stopPainting);
+canvas.addEventListener('touchcancel', stopPainting);
 
 function startPainting(event) {
   event.preventDefault(); // Prevenir comportamento padrão do toque
 
   isPainting = true;
-  updatePosition(event);
+  const touch = event.touches[0];
+  const x = touch.clientX - canvas.offsetLeft;
+  const y = touch.clientY - canvas.offsetTop;
+  paint({ offsetX: x, offsetY: y });
 }
 
 function paint(event) {
@@ -100,17 +103,13 @@ function paint(event) {
 
   if (!isPainting) return;
 
-  const currentX = event.offsetX;
-  const currentY = event.offsetY;
+  const x = event.offsetX;
+  const y = event.offsetY;
+  const color = '#ff0000'; // Defina a cor de pintura desejada
 
-  context.beginPath();
-  context.moveTo(previousX, previousY);
-  context.lineTo(currentX, currentY);
-  context.stroke();
-
-  updatePosition(event);
+  context.fillStyle = color;
+  context.fillRect(x, y, 1, 1);
 }
-
 
 function stopPainting() {
   isPainting = false;
