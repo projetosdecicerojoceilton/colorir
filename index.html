@@ -83,32 +83,41 @@ let previousY = 0;
 
 context.strokeStyle = '#ff0000';
 
+canvas.addEventListener('mousedown', startPainting);
+canvas.addEventListener('mousemove', paint);
+canvas.addEventListener('mouseup', stopPainting);
+canvas.addEventListener('mouseout', stopPainting);
+
 canvas.addEventListener('touchstart', startPainting);
 canvas.addEventListener('touchmove', paint);
 canvas.addEventListener('touchend', stopPainting);
 canvas.addEventListener('touchcancel', stopPainting);
 
 function startPainting(event) {
-  event.preventDefault(); // Prevenir comportamento padrão do toque
-
   isPainting = true;
-  const touch = event.touches[0];
-  const x = touch.clientX - canvas.offsetLeft;
-  const y = touch.clientY - canvas.offsetTop;
-  paint({ offsetX: x, offsetY: y });
+  updatePosition(event);
 }
 
 function paint(event) {
-  event.preventDefault(); // Prevenir comportamento padrão do toque
-
   if (!isPainting) return;
 
-  const x = event.offsetX;
-  const y = event.offsetY;
-  const color = '#ff0000'; // Defina a cor de pintura desejada
+  let currentX, currentY;
 
-  context.fillStyle = color;
-  context.fillRect(x, y, 1, 1);
+  if (event.type === 'mousemove') {
+    currentX = event.offsetX;
+    currentY = event.offsetY;
+  } else if (event.type === 'touchmove') {
+    const touch = event.touches[0];
+    currentX = touch.clientX - canvas.offsetLeft;
+    currentY = touch.clientY - canvas.offsetTop;
+  }
+
+  context.beginPath();
+  context.moveTo(previousX, previousY);
+  context.lineTo(currentX, currentY);
+  context.stroke();
+
+  updatePosition(event);
 }
 
 function stopPainting() {
@@ -116,9 +125,21 @@ function stopPainting() {
 }
 
 function updatePosition(event) {
-  previousX = event.offsetX;
-  previousY = event.offsetY;
+  let currentX, currentY;
+
+  if (event.type === 'mousemove') {
+    currentX = event.offsetX;
+    currentY = event.offsetY;
+  } else if (event.type === 'touchmove') {
+    const touch = event.touches[0];
+    currentX = touch.clientX - canvas.offsetLeft;
+    currentY = touch.clientY - canvas.offsetTop;
+  }
+
+  previousX = currentX;
+  previousY = currentY;
 }
+
 
 function limparCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
