@@ -1,3 +1,5 @@
+window.addEventListener("load", function(event) {
+
 const canvas = document.getElementById('drawing-area');
 const context = canvas.getContext('2d');
 
@@ -65,3 +67,5 @@ function updatePosition(event) {
   previousX = currentX;
   previousY = currentY;
 }
+
+});
