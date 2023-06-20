@@ -8,6 +8,14 @@
   </head>
   <body>
     <div id="container" class="container">
+      <select id="colorSelect" onchange="changeColor()">
+  <option value="#ff0000">Vermelho</option>
+  <option value="#00ff00">Verde</option>
+  <option value="#0000ff">Azul</option>
+</select>
+
+      <input type="number" id="brushWidth" min="1" max="20" value="5" onchange="changeBrushWidth()">
+      <button onclick="downloadCanvas()">
   <canvas id="drawing-area" class="drawing-area" height="500" width="500"></canvas>
   <button id="clear-button" class="clear-button" type="button">Clear</button>
 </div>
