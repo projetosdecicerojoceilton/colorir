@@ -89,11 +89,15 @@ canvas.addEventListener('mouseup', stopPainting);
 canvas.addEventListener('mouseout', stopPainting);
 
 function startPainting(event) {
+  event.preventDefault(); // Prevenir comportamento padrão do toque
+
   isPainting = true;
   updatePosition(event);
 }
 
 function paint(event) {
+  event.preventDefault(); // Prevenir comportamento padrão do toque
+
   if (!isPainting) return;
 
   const currentX = event.offsetX;
@@ -106,6 +110,7 @@ function paint(event) {
 
   updatePosition(event);
 }
+
 
 function stopPainting() {
   isPainting = false;
