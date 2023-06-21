@@ -15,9 +15,9 @@ const state = {
 // ===================
 let lineWidth = 1;
 const halfLineWidth = lineWidth / 2;
-const fillStyle = '#333';
-let strokeStyle = '#333';
-let shadowColor = '#333';
+const fillStyle = '#000';
+let strokeStyle = '#000';
+let shadowColor = '#000';
 const shadowBlur = lineWidth / 4;
 
 // =====================
@@ -124,7 +124,7 @@ document.getElementById("downloadCanvas").addEventListener("click", function() {
   link.click();
 });
 
-document.getElementById("colorSelect").addEventListener("click", function() {
+document.getElementById("colorSelect").addEventListener("change", function() {
   strokeStyle = this.value;
   shadowColor =  this.value;
 });
