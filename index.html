@@ -8,24 +8,38 @@
   </head>
 <body>
 
-<div id="container" class="container">
-<div class="header">
+<div class="container-fluid">
+  <div class="row">
+
+  
+<div class="header col-12 centered ">
       <select id="colorSelect">
         <option value="#000000">Preto</option>
         <option value="#ff0000">Vermelho</option>
         <option value="#00ff00">Verde</option>
         <option value="#0000ff">Azul</option>
       </select>
-      <input type="number" id="brushWidth" min="1" max="20" value="1">
+
+      <!-- <input type="number" id="brushWidth" min="1" max="20" value="1"> -->
+      <select id="brushWidth">
+        <option value="1"> 1 </option>
+        <option value="2"> 2 </option>
+        <option value="3"> 3 </option>
+        <option value="5"> 5 </option>
+        <option value="10"> 10 </option>
+        <option value="20"> 20 </option>
+      </select>
+
       <button id="downloadCanvas"> Download </button>
-      <button id="clear-button" class="clear-button" type="button">Limpar</button>
+      <button id="clear-button" type="button">Limpar</button>
 </div>
 
-<div class="content">
+<div class="content col-12 centered ">
       <canvas id="drawing-area" class="drawing-area" height="500" width="500"></canvas>
 </div>
 
-</div>
+</div> <!-- Row -->
+</div> <!-- Container -->
     
 <script src="script.js"></script>
     

@@ -1,18 +1,58 @@
-.container {
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Kanit', sans-serif;
+}
+
+.container-fluid {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
   width: 100vw;
-  min-height: 95vh;
+  height: 100vh;
+  background-color: #ed1b24;
+}
+
+.container-fluid .row {
+  background-color: #ffe230;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 20px 10px;
 }
 
 .drawing-area {
   box-shadow: 0 0 6px 0 #999;
+  background-color: #fff;
 }
 
 .clear-button {
   margin: 2em;
   font-size: 16px;
+}
+
+button {
+  padding: 5px;
+  background-color: darkslateblue;
+  font-size: 12px;
+  color: #fff;
+  border: 1px #eee solid;
+  border-radius: 5px;
+}
+
+select {
+  padding: 5px;
+  background-color: darkslateblue;
+  font-size: 12px;
+  color: #fff;
+  border: 1px #eee solid;
+  border-radius: 5px;
 }
 
