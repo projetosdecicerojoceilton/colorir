@@ -133,5 +133,43 @@ document.getElementById("colorSelect").addEventListener("change", function() {
 function clearCanvas() {
   canvasContext.clearRect(0, 0, canvas.width, canvas.height);
  }
+var canvas = document.getElementById('drawing-area');
+var ctx = canvas.getContext('2d');
+var timer;
+var longPress = false;
+
+// Evento de toque inicial
+canvas.addEventListener('touchstart', function(e) {
+  // Inicia um temporizador para detectar um toque longo após 1 segundo (1000 milissegundos)
+  timer = setTimeout(function() {
+    longPress = true;
+    // Chame a função para desenhar o ponto
+    drawPoint(e.touches[0].clientX, e.touches[0].clientY);
+  }, 1000);
+});
+
+// Evento de movimento do toque
+canvas.addEventListener('touchmove', function(e) {
+  // Se o toque se mover, cancela o temporizador
+  clearTimeout(timer);
+});
+
+// Evento de liberação do toque
+canvas.addEventListener('touchend', function(e) {
+  // Se o toque for liberado antes de 1 segundo, não é considerado um toque longo
+  clearTimeout(timer);
+  // Reinicia a variável de controle
+  longPress = false;
+});
+
+// Função para desenhar o ponto
+function drawPoint(x, y) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'red';
+  ctx.beginPath();
+  ctx.arc(x, y, 5, 0, Math.PI * 2);
+  ctx.fill();
+}
+                                                        
 
 });
