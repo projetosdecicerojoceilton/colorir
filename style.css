@@ -11,8 +11,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 80vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   background-color: #ed1b24;
 }
 
@@ -25,6 +25,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  padding: 10px;
 }
 
 .drawing-area {
