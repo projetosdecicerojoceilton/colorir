@@ -125,13 +125,33 @@ window.addEventListener('touchmove', function(event) {
     lineWidth = linhalargura;
   });
   
-  document.getElementById("downloadCanvas").addEventListener("click", function() {
+  /*document.getElementById("downloadCanvas").addEventListener("click", function() {
     const canvas = document.getElementById('drawing-area');
     const link = document.createElement('a');
     link.href = canvas.toDataURL();
     link.download = 'imagem.png';
     link.click();
+  });*/
+
+  document.getElementById("downloadCanvas").addEventListener("click", function() {
+  const canvas = document.getElementById('drawing-area');
+  const imageData = canvas.toDataURL();
+
+  // Enviar a imagem para o servidor
+  fetch('https://salvarimagem.ccerojoceilton.repl.co', {
+    method: 'POST',
+    body: imageData
+  })
+  .then(response => response.blob())
+  .then(blob => {
+    // Criar um link para o download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'imagem.png';
+    link.click();
   });
+});
+
   
   document.getElementById("colorSelect").addEventListener("change", function() {
     strokeStyle = this.value;
