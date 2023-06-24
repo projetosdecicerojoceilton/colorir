@@ -133,22 +133,25 @@ window.addEventListener('touchmove', function(event) {
     link.click();
   });*/
 
-  document.getElementById("downloadCanvas").addEventListener("click", function() {
+  document.getElementById("uploadButton").addEventListener("click", function() {
   const canvas = document.getElementById('drawing-area');
   const imageData = canvas.toDataURL();
 
   // Enviar a imagem para o servidor
-  fetch('https://salvarimagem.ccerojoceilton.repl.co', {
+  fetch('/upload', {
     method: 'POST',
-    body: imageData
+    body: JSON.stringify({ imageData }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
-  .then(response => response.blob())
-  .then(blob => {
-    // Criar um link para o download
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'imagem.png';
-    link.click();
+  .then(response => response.json())
+  .then(data => {
+    const imageLink = document.getElementById('imageLink');
+    imageLink.innerHTML = `<a href="${data.imageUrl}" target="_blank">Clique aqui para abrir a imagem</a>`;
+  })
+  .catch(error => {
+    console.error('Erro:', error);
   });
 });
 
