@@ -126,11 +126,14 @@ window.addEventListener('touchmove', function(event) {
   });
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
-    const canvas = document.getElementById('drawing-area');
+    /*const canvas = document.getElementById('drawing-area');
     const link = document.createElement('a');
     link.href = canvas.toDataURL();
     link.download = 'imagem.png';
-    link.click();
+    link.click();*/
+    canvas.toBlob(function(blob) {
+      saveAs(blob, "pretty image.png");
+  });
   });
   
   document.getElementById("colorSelect").addEventListener("change", function() {
