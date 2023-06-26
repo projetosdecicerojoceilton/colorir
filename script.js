@@ -125,36 +125,13 @@ window.addEventListener('touchmove', function(event) {
     lineWidth = linhalargura;
   });
   
-  /*document.getElementById("downloadCanvas").addEventListener("click", function() {
+  document.getElementById("downloadCanvas").addEventListener("click", function() {
     const canvas = document.getElementById('drawing-area');
     const link = document.createElement('a');
     link.href = canvas.toDataURL();
     link.download = 'imagem.png';
     link.click();
-  });*/
-
-  document.getElementById("uploadButton").addEventListener("click", function() {
-  const canvas = document.getElementById('drawing-area');
-  const imageData = canvas.toDataURL();
-
-  // Enviar a imagem para o servidor
-  fetch('/upload', {
-    method: 'POST',
-    body: JSON.stringify({ imageData }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    const imageLink = document.getElementById('imageLink');
-    imageLink.innerHTML = `<a href="${data.imageUrl}" target="_blank">Clique aqui para abrir a imagem</a>`;
-  })
-  .catch(error => {
-    console.error('Erro:', error);
   });
-});
-
   
   document.getElementById("colorSelect").addEventListener("change", function() {
     strokeStyle = this.value;
