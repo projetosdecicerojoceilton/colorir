@@ -126,9 +126,12 @@ window.addEventListener('touchmove', function(event) {
   });
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
-    
-    let link = document.getElementById("baixarimagem");
-    link.setAttribute("href", canvas.toDataURL())
+
+    let img = document.getElementById("img")
+    img.setAttribute("src", canvas.toDataURL())
+
+    //let link = document.getElementById("baixarimagem");
+    //link.setAttribute("href", canvas.toDataURL())
 
     /*const link = document.createElement('a');
     link.href = canvas.toDataURL();
