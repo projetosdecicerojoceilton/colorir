@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        let url = document.location.href;
+        let sep = url.split("data=")
+        const link = document.createElement('a');
+        link.href = sep[1];
+        link.download = 'imagem.png';
+        link.click();
+        
+    </script>
+    
+</body>
+</html>
+
+
+
+
+
+
+

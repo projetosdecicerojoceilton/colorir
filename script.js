@@ -127,11 +127,7 @@ window.addEventListener('touchmove', function(event) {
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
 
-    let img = document.getElementById("img")
-    img.setAttribute("src", canvas.toDataURL())
-
-    //let link = document.getElementById("baixarimagem");
-    //link.setAttribute("href", canvas.toDataURL())
+    window.location.href = "http://127.0.0.1:5500/download.html?data=" + canvas.toDataURL();
 
     /*const link = document.createElement('a');
     link.href = canvas.toDataURL();
