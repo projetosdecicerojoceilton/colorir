@@ -127,7 +127,9 @@ window.addEventListener('touchmove', function(event) {
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
 
-    window.location.href = "https://projetosdecicerojoceilton.github.io/colorir/download.html?data=" + canvas.toDataURL();
+    var urlOriginal = "https://joceilton.github.io/appcolorir/colorir/download.html?data=" + canvas.toDataURL();
+
+    window.location.href = urlOriginal;
 
     /*const link = document.createElement('a');
     link.href = canvas.toDataURL();
