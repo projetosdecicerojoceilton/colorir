@@ -127,7 +127,7 @@ window.addEventListener('touchmove', function(event) {
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
 
-    window.location.href = "http://127.0.0.1:5500/download.html?data=" + canvas.toDataURL();
+    window.location.href = "https://projetosdecicerojoceilton.github.io/colorir/download.html?data=" + canvas.toDataURL();
 
     /*const link = document.createElement('a');
     link.href = canvas.toDataURL();
