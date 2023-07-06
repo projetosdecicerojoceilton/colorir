@@ -127,14 +127,13 @@ window.addEventListener('touchmove', function(event) {
   
   document.getElementById("downloadCanvas").addEventListener("click", function() {
 
-    var urlOriginal = "./download.html?data=" + canvas.toDataURL();
+    /*var urlOriginal = "./download.html?data=" + canvas.toDataURL();
+    window.location.href = urlOriginal;*/
 
-    window.location.href = urlOriginal;
-
-    /*const link = document.createElement('a');
+    const link = document.createElement('a');
     link.href = canvas.toDataURL();
     link.download = 'imagem.png';
-    link.click();*/
+    link.click();
 
   });
   
